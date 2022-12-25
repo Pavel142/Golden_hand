@@ -1,0 +1,380 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище Golden_handModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="ClientID" />
+          </Key>
+          <Property Name="ClientID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FIO" Type="nvarchar" MaxLength="60" Nullable="false" />
+          <Property Name="Phone" Type="nchar" MaxLength="11" Nullable="false" />
+          <Property Name="Birth_date" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Documet">
+          <Key>
+            <PropertyRef Name="DocumentID" />
+          </Key>
+          <Property Name="DocumentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name_Document" Type="nvarchar" MaxLength="70" Nullable="false" />
+          <Property Name="ClientID" Type="int" Nullable="false" />
+          <Property Name="JewelID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Jewel">
+          <Key>
+            <PropertyRef Name="JewelID" />
+          </Key>
+          <Property Name="JewelID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name_jewel" Type="nvarchar" MaxLength="60" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Cost" Type="money" Nullable="false" />
+          <Property Name="Stored_by" Type="date" Nullable="false" />
+          <Property Name="Payment_status" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="Access_level" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FIO" Type="nvarchar" MaxLength="60" Nullable="false" />
+          <Property Name="Phone" Type="nchar" MaxLength="11" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Birth_date" Type="date" Nullable="false" />
+          <Property Name="Registration" Type="nvarchar" MaxLength="60" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Documet_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Documet" Type="Self.Documet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientID" />
+            </Principal>
+            <Dependent Role="Documet">
+              <PropertyRef Name="ClientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Documet_Jewel">
+          <End Role="Jewel" Type="Self.Jewel" Multiplicity="1" />
+          <End Role="Documet" Type="Self.Documet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Jewel">
+              <PropertyRef Name="JewelID" />
+            </Principal>
+            <Dependent Role="Documet">
+              <PropertyRef Name="JewelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Documet_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Documet" Type="Self.Documet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Documet">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Role_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Role" Type="Self.Role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Role">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище Golden_handModelContainer">
+          <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Documet" EntityType="Self.Documet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Jewel" EntityType="Self.Jewel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Documet_Client" Association="Self.FK_Documet_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Documet" EntitySet="Documet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Documet_Jewel" Association="Self.FK_Documet_Jewel">
+            <End Role="Jewel" EntitySet="Jewel" />
+            <End Role="Documet" EntitySet="Documet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Documet_User" Association="Self.FK_Documet_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Documet" EntitySet="Documet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Role_User" Association="Self.FK_Role_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Role" EntitySet="Role" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Golden_handModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="ClientID" />
+          </Key>
+          <Property Name="ClientID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FIO" Type="String" MaxLength="60" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="11" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Birth_date" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Documet" Relationship="Self.FK_Documet_Client" FromRole="Client" ToRole="Documet" />
+        </EntityType>
+        <EntityType Name="Documet">
+          <Key>
+            <PropertyRef Name="DocumentID" />
+          </Key>
+          <Property Name="DocumentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name_Document" Type="String" MaxLength="70" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClientID" Type="Int32" Nullable="false" />
+          <Property Name="JewelID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Client" Relationship="Self.FK_Documet_Client" FromRole="Documet" ToRole="Client" />
+          <NavigationProperty Name="Jewel" Relationship="Self.FK_Documet_Jewel" FromRole="Documet" ToRole="Jewel" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Documet_User" FromRole="Documet" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Jewel">
+          <Key>
+            <PropertyRef Name="JewelID" />
+          </Key>
+          <Property Name="JewelID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name_jewel" Type="String" MaxLength="60" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Cost" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Stored_by" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Payment_status" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Documet" Relationship="Self.FK_Documet_Jewel" FromRole="Jewel" ToRole="Documet" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="Access_level" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Role_User" FromRole="Role" ToRole="User" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FIO" Type="String" MaxLength="60" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="11" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Birth_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Registration" Type="String" MaxLength="60" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Documet" Relationship="Self.FK_Documet_User" FromRole="User" ToRole="Documet" />
+          <NavigationProperty Name="Role" Relationship="Self.FK_Role_User" FromRole="User" ToRole="Role" />
+        </EntityType>
+        <Association Name="FK_Documet_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Documet" Type="Self.Documet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientID" />
+            </Principal>
+            <Dependent Role="Documet">
+              <PropertyRef Name="ClientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Documet_Jewel">
+          <End Role="Jewel" Type="Self.Jewel" Multiplicity="1" />
+          <End Role="Documet" Type="Self.Documet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Jewel">
+              <PropertyRef Name="JewelID" />
+            </Principal>
+            <Dependent Role="Documet">
+              <PropertyRef Name="JewelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Documet_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Documet" Type="Self.Documet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Documet">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Role_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Role" Type="Self.Role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Role">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Golden_handEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Client" EntityType="Self.Client" />
+          <EntitySet Name="Documet" EntityType="Self.Documet" />
+          <EntitySet Name="Jewel" EntityType="Self.Jewel" />
+          <EntitySet Name="Role" EntityType="Self.Role" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="User" EntityType="Self.User" />
+          <AssociationSet Name="FK_Documet_Client" Association="Self.FK_Documet_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Documet" EntitySet="Documet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Documet_Jewel" Association="Self.FK_Documet_Jewel">
+            <End Role="Jewel" EntitySet="Jewel" />
+            <End Role="Documet" EntitySet="Documet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Documet_User" Association="Self.FK_Documet_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Documet" EntitySet="Documet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Role_User" Association="Self.FK_Role_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Role" EntitySet="Role" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище Golden_handModelContainer" CdmEntityContainer="Golden_handEntities">
+          <EntitySetMapping Name="Client">
+            <EntityTypeMapping TypeName="Golden_handModel.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+                <ScalarProperty Name="FIO" ColumnName="FIO" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Birth_date" ColumnName="Birth_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Documet">
+            <EntityTypeMapping TypeName="Golden_handModel.Documet">
+              <MappingFragment StoreEntitySet="Documet">
+                <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
+                <ScalarProperty Name="Name_Document" ColumnName="Name_Document" />
+                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+                <ScalarProperty Name="JewelID" ColumnName="JewelID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Jewel">
+            <EntityTypeMapping TypeName="Golden_handModel.Jewel">
+              <MappingFragment StoreEntitySet="Jewel">
+                <ScalarProperty Name="JewelID" ColumnName="JewelID" />
+                <ScalarProperty Name="Name_jewel" ColumnName="Name_jewel" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="Stored_by" ColumnName="Stored_by" />
+                <ScalarProperty Name="Payment_status" ColumnName="Payment_status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Role">
+            <EntityTypeMapping TypeName="Golden_handModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Access_level" ColumnName="Access_level" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="Golden_handModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="Golden_handModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="FIO" ColumnName="FIO" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Birth_date" ColumnName="Birth_date" />
+                <ScalarProperty Name="Registration" ColumnName="Registration" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,39 @@
+﻿<Page x:Class="Golden_hand.View.LoginPage.Logpage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Golden_hand.View.LoginPage"
+      mc:Ignorable="d" 
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Logpage">
+
+    <Grid>
+        <Border MinWidth="600" Margin="15" Background="White" VerticalAlignment="Center" Padding="30" MaxWidth="550" CornerRadius="12">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="25" Color="#FF6F4223" ShadowDepth="0"></DropShadowEffect>
+            </Border.Effect>
+            <StackPanel>
+                <Grid>
+                    <TextBlock Text ="Авторизация" FontSize="30" FontWeight="SemiBold" Margin="0 0 0 20" />
+                    <Button Style="{StaticResource MaterialDesignIconForegroundButton}"
+                                ToolTip="Закрыть приложение"
+                                x:Name="BtnClose"
+                                Cursor="Hand" Margin="492,6,0,6" Click="BtnClose_Click">
+                        <materialDesign:PackIcon Kind="Power"
+                                                 Foreground="#FFB76E3A" />
+                    </Button>
+                </Grid>
+
+                <TextBox x:Name="textBoxLogin" materialDesign:HintAssist.Hint="Введиле логин" Style="{StaticResource MaterialDesignFloatingHintTextBox}" CaretBrush="#FFB76E3A" SelectionBrush="#FFB76E3A" />
+                <PasswordBox x:Name="passBox" materialDesign:HintAssist.Hint="Введите пароль" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" CaretBrush="#FFB76E3A" SelectionBrush="#FFB76E3A" Background="#00000000" />
+                <Grid Margin="0 30 0 10">
+                    <Button HorizontalAlignment="Left" Content="Зарегистрироваться" Background="#FFB76E3A" BorderBrush="#FF6F4223" Cursor="Hand" />
+                    <Button HorizontalAlignment="Right" Content="Войти" Style="{StaticResource MaterialDesignFlatButton}" Foreground="#FFB76E3A" Cursor="Hand" />
+                </Grid>
+                <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</Page>

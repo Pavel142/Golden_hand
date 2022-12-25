@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32616.157
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Golden_hand", "Golden_hand\Golden_hand.csproj", "{6A5BF23E-8C4B-4E91-B571-9B8A08CF3AD9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6A5BF23E-8C4B-4E91-B571-9B8A08CF3AD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A5BF23E-8C4B-4E91-B571-9B8A08CF3AD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A5BF23E-8C4B-4E91-B571-9B8A08CF3AD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A5BF23E-8C4B-4E91-B571-9B8A08CF3AD9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {56250A9B-1A57-47D2-A2A6-24A8C10FA859}
+	EndGlobalSection
+EndGlobal
