@@ -25,7 +25,7 @@ namespace Golden_hand
         {
             InitializeComponent();
            
-     
+            
         }
 
     }
